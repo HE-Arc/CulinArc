@@ -33,17 +33,17 @@ class Ingredient extends Model
    {
       return array_search($unit, self::UNITS);
    }
-   
+
    public function getUnitAttribute()
    {
       return self::UNITS[ $this->attributes['unit'] ];
    }
-   
-   public function setUnitAttribute($value)
-   {
-      $unitID = self::getUnitID($value);
-      if ($unitID) {
-         $this->attributes['unit'] = $unitID;
-      }
-   }
+
+//    public function setUnitAttribute($value)
+//    {
+//       $unitID = self::getUnitID($value);
+//       if ($unitID) {
+//          $this->attributes['unit'] = $unitID;
+//       }
+//    }
 }
