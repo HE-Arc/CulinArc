@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Ingredient extends Model
 {
@@ -24,9 +24,9 @@ class Ingredient extends Model
 
    protected $fillable = ['name', 'unit'];
 
-   public function recipes(): BelongsToMany
+   public function recipes(): HasMany
    {
-       return $this->belongsToMany(Recipe::class);
+       return $this->hasMany(Recipe::class);
    }
 
    public static function getUnitID($unit)
@@ -38,12 +38,4 @@ class Ingredient extends Model
    {
       return self::UNITS[ $this->attributes['unit'] ];
    }
-
-//    public function setUnitAttribute($value)
-//    {
-//       $unitID = self::getUnitID($value);
-//       if ($unitID) {
-//          $this->attributes['unit'] = $unitID;
-//       }
-//    }
 }

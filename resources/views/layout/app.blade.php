@@ -22,13 +22,10 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                   <li class="nav-item">
-                      <a class="nav-link" href="/recipes">Recipes</a>
+                      <a class="nav-link" href="/recipes">Recettes</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="/ingredients">Ingredients</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="/users">Users</a>
+                      <a class="nav-link" href="/ingredients">Ingrédients</a>
                   </li>
                 </ul>
             </div>

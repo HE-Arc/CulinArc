@@ -18,8 +18,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::resource('ingredients', IngredientController::class);

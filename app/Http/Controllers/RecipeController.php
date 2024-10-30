@@ -50,11 +50,14 @@ class RecipeController extends Controller
                 // Retourner une erreur si fichier image invalide
                 return back()->withErrors(['image' => 'Invalid image file.'])->withInput();
             }
+        } else {
+            // TODO: replace with a default image (default value in db)
+            $validated['image'] = "";   
         }
 
         Recipe::create($validated);
 
-        return redirect()->route('recipes.index')->with('success', 'Recipe created successfully!');
+        return redirect()->route('recipes.index')->with('success', 'Recette créé avec succès!');
     }
 
     /**
@@ -95,7 +98,7 @@ class RecipeController extends Controller
     
         $recipe->update($validated);
     
-        return redirect()->route('recipes.index')->with('success', 'Recette mise à jour avec succès.');
+        return redirect()->route('recipes.index')->with('success', 'Recette modifiée avec succès.');
     }
     
 
@@ -107,7 +110,7 @@ class RecipeController extends Controller
         $recipe = Recipe::findOrFail($id);
         $recipe->delete();
 
-        return redirect()->route('recipes.index')->with('success', 'Recipe deleted successfully!');
+        return redirect()->route('recipes.index')->with('success', 'Recette supprimée avec succès!');
     }
 
 }
