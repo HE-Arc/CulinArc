@@ -45,13 +45,13 @@ class Recipe extends Model
        return self::DIFFICULTY[ $this->attributes['difficulty']];
     }
     
-    public function setDifficultyAttribute($value)
-    {
-       $difficultyID = self::getDifficutlyID($value);
-       if ($difficultyID) {
-          $this->attributes['difficulty'] = $difficultyID;
-       }
-    }
+   //  public function setDifficultyAttribute($value)
+   //  {
+   //     $difficultyID = self::getDifficutlyID($value);
+   //     if ($difficultyID) {
+   //        $this->attributes['difficulty'] = $difficultyID;
+   //     }
+   //  }
     
     public static function getTypeID($type)
     {
@@ -63,11 +63,11 @@ class Recipe extends Model
        return self::TYPE[ $this->attributes['type'] ];
     }
     
-    public function setTypeAttribute($value)
-    {
-       $typeID = self::getTypeID($value);
-       if ($typeID) {
-          $this->attributes['type'] = $typeID;
-       }
-    }
+   //  public function setTypeAttribute($value)
+   //  {
+   //     $typeID = self::getTypeID($value);
+   //     if ($typeID) {
+   //        $this->attributes['type'] = $typeID;
+   //     }
+   //  }
 }
