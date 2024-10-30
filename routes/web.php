@@ -3,7 +3,7 @@
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\IngredientController;
-use App\Http\Controllers\WelcomeController;
+use App\Http\Controllers\UserController;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
@@ -17,8 +17,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-//Route::get('/', [WelcomeController::class, 'index'])->name('welcome');
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 

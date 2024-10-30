@@ -36,7 +36,7 @@ class IngredientController extends Controller
 
         Ingredient::create($validated);
 
-        return redirect()->route('ingredients.index')->with('success', 'Ingredient created successfully!');
+        return redirect()->route('ingredients.index')->with('success', 'Ingrédient créé avec succès!');
     }
 
     /**
@@ -70,7 +70,7 @@ class IngredientController extends Controller
         $ingredient = Ingredient::findOrFail($id);
         $ingredient->update($validated);
 
-        return redirect()->route('ingredients.index')->with('success', 'Ingredient updated successfully!');
+        return redirect()->route('ingredients.index')->with('success', 'Ingrédient modifié avec succès!');
     }
 
     /**
@@ -81,7 +81,7 @@ class IngredientController extends Controller
         $ingredient = Ingredient::findOrFail($id);
         $ingredient->delete();
 
-        return redirect()->route('ingredients.index')->with('success', 'Ingredient deleted successfully!');
+        return redirect()->route('ingredients.index')->with('success', 'Ingrédient supprimé avec succès!');
     }
 
 }

@@ -68,7 +68,7 @@
                 </div>
 
                 <div class="form-group col-12">
-                    <label for="inputPreparation">Préparation</label>
+                    <label for="inputPreparation">Préparation (format JSON)</label>
                     <textarea name="preparation" class="form-control" id="inputPreparation" rows="4">{{ old('preparation', $recipe->preparation) }}</textarea>
                     @error('preparation')
                         <div class="alert alert-danger">{{ $message }}</div>

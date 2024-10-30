@@ -23,7 +23,7 @@
                     <input type="text" name="name" value="{{$ingredient->name}}" class="form-control" id="inputName">
                 </div>
                 <div class="row mt-3">
-                    <div class="form-group col-6">
+                    <div class="form-group col-12">
                         <label for="inputUnit">Unité</label>
                         <select name="unit" class="form-control" id="inputUnit">
                             @foreach(App\Models\Ingredient::UNITS as $id => $unit)
@@ -33,9 +33,8 @@
                             @endforeach
                         </select>
                     </div>
+                    <button type="submit" class="btn btn-primary mt-3">Modifier</button>
                 </div>
-
-                <button type="submit" class="btn btn-primary mt-3">Modifier</button>
             </div>
         </div>
     </div>
