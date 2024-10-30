@@ -9,13 +9,12 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::all();
-        return view('users.index', ['users' => $users]);
+        //TODO : add login page
     }
 
     public function create()
     {
-        return view('users.create');
+        //TODO : add signup page
     }
 
     public function store(Request $request)
@@ -30,19 +29,17 @@ class UserController extends Controller
 
         User::create($validated);
 
-        return redirect()->route('users.index')->with('success', 'User created successfully!');
+        return redirect()->route('/')->with('success', 'User created successfully!');
     }
 
     public function show(string $id)
     {
-        $user = User::findOrFail($id);
-        return view('users.show', compact('user'));
+        //TODO : add user profile page
     }
 
     public function edit(string $id)
     {
-        $user = User::findOrFail($id);
-        return view('users.edit', compact('user'));
+        //TODO : add user edit page
     }
 
     public function update(Request $request, string $id)
@@ -62,7 +59,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->update($validated);
 
-        return redirect()->route('users.index')->with('success', 'User updated successfully!');
+        return redirect()->route('/')->with('success', 'User updated successfully!');
     }
 
     public function destroy(string $id)
@@ -70,6 +67,6 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
 
-        return redirect()->route('users.index')->with('success', 'User deleted successfully!');
+        return redirect()->route('/')->with('success', 'User deleted successfully!');
     }
 }
