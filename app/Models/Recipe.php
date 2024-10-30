@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
 
 class Recipe extends Model
@@ -25,14 +25,14 @@ class Recipe extends Model
 
     protected $fillable = ['title', 'difficulty', 'type', 'preparation_time', 'image', 'preparation'];
 
-    public function ingredients(): BelongsToMany
+    public function ingredients(): HasMany
     {
-        return $this->belongsToMany(Ingredient::class);
+        return $this->HasMany(Ingredient::class);
     }
 
-    public function users(): BelongsToMany
+    public function users(): HasMany
     {
-        return $this->belongsToMany(User::class);
+        return $this->HasMany(User::class);
     }
 
     public static function getDifficultyID($difficulty)
@@ -45,14 +45,6 @@ class Recipe extends Model
        return self::DIFFICULTY[ $this->attributes['difficulty']];
     }
     
-    public function setDifficultyAttribute($value)
-    {
-       $difficultyID = self::getDifficutlyID($value);
-       if ($difficultyID) {
-          $this->attributes['difficulty'] = $difficultyID;
-       }
-    }
-    
     public static function getTypeID($type)
     {
        return array_search($type, self::DIFFICULTY);
@@ -61,13 +53,5 @@ class Recipe extends Model
     public function getTypeAttribute()
     {
        return self::TYPE[ $this->attributes['type'] ];
-    }
-    
-    public function setTypeAttribute($value)
-    {
-       $typeID = self::getTypeID($value);
-       if ($typeID) {
-          $this->attributes['type'] = $typeID;
-       }
     }
 }
