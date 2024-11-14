@@ -1,6 +1,8 @@
-# CulinArc
 
-LOGO
+
+
+![culinarc_transp](https://github.com/user-attachments/assets/bae613a4-0b2d-401a-8f2c-670dd74eb8fc)
+
 
 ## À propos de CulinArc
 
