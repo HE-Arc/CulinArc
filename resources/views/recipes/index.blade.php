@@ -1,53 +1,89 @@
 @extends('layout.app')
 
 @section('content')
+<div class="container">
+    <!-- Header Section -->
+    <div class="text-center my-5">
+        <div class="container">
+            <!-- Container for image, text, and button -->
+            <div class="container-spe">
+                <img src="{{ asset('images/home.jpg') }}" alt="Home image">
 
-    <h1>Recettes</h1>
-    <a href="{{ route('recipes.create') }}" class="btn btn-primary float-right mb-2">Ajouter une recette</a>
+                <!-- Text and Button Overlaid on Image -->
+                <div class="overlay-text">
+                    <h2>Des recettes faciles et rapides</h2>
+                    <a href="{{ route('recipes.create') }}" class="btn btn-primary mb-2">Show now</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col">Recette</th>
-                <th scope="col">Type</th>
-                <th scope="col">Difficulté</th>
-                <th scope="col">Temps de préparation</th>
-                <th scope="col">Déroulement</th>
-                <th scope="col">&nbsp;</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($recipes as $recipe)
-                <tr>
-                <td>{{ $recipe->title }}</td>
-                    <td>{{ $recipe->type }}</td>
-                    <td>{{ $recipe->difficulty }}</td>
-                    <td>{{ $recipe->preparation_time }}</td>
-                    <td>{{ $recipe->preparation }}</td>
-                    <form action="{{ route('recipes.destroy', $recipe->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette recette ?');">                    <td>
+    <!-- Filter Section -->
+    <div class="d-flex justify-content-end align-items-center mb-4">
+        <div class="dropdown mx-1">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+                Catégorie
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Entrée</a>
+                <a class="dropdown-item" href="#">Plat</a>
+                <a class="dropdown-item" href="#">Dessert</a>
+                <a class="dropdown-item" href="#">Divers</a>
+            </div>
+        </div>
 
-                    <td>
-                    <a class="btn btn-info" href="{{ route('recipes.show', $recipe->id) }}">
-                    <i class="bi bi-eye"></i>
-                        </a>
-                    </td>
+        <div class="dropdown mx-1">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+                Temps de préparation
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">5-15 min</a>
+                <a class="dropdown-item" href="#">15-30 min</a>
+                <a class="dropdown-item" href="#">30 min et plus</a>
+            </div>
+        </div>
 
-                    <td>
-                        <a class="btn btn-primary" href="{{ route('recipes.edit', $recipe->id) }}">
-                            <i class="bi bi-pencil"></i>
-                        </a>
-                    </td>
+        <div class="dropdown mx-1">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
+                Difficulté
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="#">Facile</a>
+                <a class="dropdown-item" href="#">Moyen</a>
+                <a class="dropdown-item" href="#">Difficile</a>
+            </div>
+        </div>
+    </div>
 
-                    <td>
-                        <form action="{{ route('recipes.destroy', $recipe->id) }}" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette recette ?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Supprimer</button>
-                        </form>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+    <!-- Recipes Grid Section -->
+    <div class="row">
+        @foreach($recipes as $recipe)
+            <div class="col-md-4 mb-4">
+                <a href="{{ route('recipes.show', $recipe->id) }}" class="text-decoration-none">
+                    <div class="card h-100">
+                        <!-- Recipe image -->
+                        @if($recipe->image)
+                            <img src="{{ asset($recipe->image) }}" class="card-img-top" alt="{{ $recipe->title }}">
+                        @else
+                            <!-- TODO : Securtiy -->
+                            <img src="https://via.placeholder.com/150" class="card-img-top" alt="Default image">
+                        @endif
 
+                        <div class="card-body">
+                            <!-- Recipe title -->
+                            <h5 class="card-title text-dark">{{ $recipe->title }}</h5>
+
+                            <!-- Recipe information -->
+                            <p class="card-text">
+                                <span class="badge badge-info">{{ $recipe->difficulty }}</span>
+                                <span class="badge badge-info">{{ $recipe->type }}</span>
+                                <span class="badge badge-info">{{ $recipe->preparation_time }} min</span>
+                            </p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        @endforeach
+    </div>
+</div>
 @endsection
