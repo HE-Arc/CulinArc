@@ -39,17 +39,17 @@ class Recipe extends Model
     {
        return array_search($difficulty, self::DIFFICULTY);
     }
-    
+
     public function getDifficultyAttribute()
     {
        return self::DIFFICULTY[ $this->attributes['difficulty']];
     }
-    
+
     public static function getTypeID($type)
     {
-       return array_search($type, self::DIFFICULTY);
+       return array_search($type, self::TYPE);
     }
-    
+
     public function getTypeAttribute()
     {
        return self::TYPE[ $this->attributes['type'] ];

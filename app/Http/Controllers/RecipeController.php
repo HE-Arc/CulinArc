@@ -10,11 +10,49 @@ class RecipeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $recipes = Recipe::all();
-        return view('recipes.index', ['recipes' => $recipes]);
+        $query = Recipe::query();
+
+        // Filtrer par type
+        if ($request->has('type') && $request->type) {
+            // Utiliser la méthode getTypeID pour obtenir l'ID à partir du libellé
+            $typeID = Recipe::getTypeID($request->type);
+            if ($typeID !== false) {
+                $query->where('type', $typeID);
+            }
+        }
+
+        // Filtrer par temps de préparation
+        if ($request->has('time') && $request->time) {
+            switch ($request->time) {
+                case '5-15':
+                    $query->whereBetween('preparation_time', [5, 15]);
+                    break;
+                case '15-30':
+                    $query->whereBetween('preparation_time', [15, 30]);
+                    break;
+                case '30+':
+                    $query->where('preparation_time', '>', 30);
+                    break;
+            }
+        }
+
+        // Filtrer par difficulté
+        if ($request->has('difficulty') && $request->difficulty) {
+            // Utiliser la méthode getDifficultyID pour obtenir l'ID à partir du libellé
+            $difficultyID = Recipe::getDifficultyID($request->difficulty);
+            if ($difficultyID !== false) {
+                $query->where('difficulty', $difficultyID);
+            }
+        }
+
+        // Récupérer les recettes avec pagination
+        $recipes = $query->paginate(9);
+
+        return view('recipes.index', compact('recipes'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -52,7 +90,7 @@ class RecipeController extends Controller
             }
         } else {
             // TODO: replace with a default image (default value in db)
-            $validated['image'] = "";   
+            $validated['image'] = "";
         }
 
         Recipe::create($validated);
@@ -86,21 +124,21 @@ class RecipeController extends Controller
         // Validation des données reçues
         $validated = $request->validate([
             'title' => 'required|min:2|max:50',
-            'difficulty' => 'required|in:1,2,3', 
-            'type' => 'required|in:1,2,3,4', 
+            'difficulty' => 'required|in:1,2,3',
+            'type' => 'required|in:1,2,3,4',
             'preparation_time' => 'required|numeric|min:1',
-            'image' => 'sometimes|image',  
-            'preparation' => 'required|string|min:10' 
+            'image' => 'sometimes|image',
+            'preparation' => 'required|string|min:10'
         ]);
-    
+
         // Récupération de la recette ou échec si non trouvée
         $recipe = Recipe::findOrFail($id);
-    
+
         $recipe->update($validated);
-    
+
         return redirect()->route('recipes.index')->with('success', 'Recette modifiée avec succès.');
     }
-    
+
 
     /**
      * Remove the specified resource from storage.
