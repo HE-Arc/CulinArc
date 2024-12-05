@@ -82,7 +82,7 @@
                     <a href="{{ route('recipes.show', $recipe->id) }}" class="text-decoration-none">
                         <div class="card h-100">
                             @if($recipe->image)
-                                <img src="{{ asset($recipe->image) }}" class="card-img-top" alt="{{ $recipe->title }}">
+                                <img src="{{ asset('storage/' . $recipe->image) }}" class="card-img-top" alt="{{ $recipe->title }}">
                             @else
                                 <img src="https://via.placeholder.com/150" class="card-img-top" alt="Default image">
                             @endif
