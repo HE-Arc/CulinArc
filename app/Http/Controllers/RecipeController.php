@@ -68,36 +68,34 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
-        // Validation des entrées
         $validated = $request->validate([
             'title' => 'required|min:2|max:50',
             'preparation_time' => 'required|numeric|min:1',
             'difficulty' => 'required|in:1,2,3',
             'type' => 'required|in:1,2,3,4',
-            'preparation' => 'required|string|min:10',
+            'preparation' => 'required|array|min:1',
+            'preparation.*.action' => 'required|string|min:3',
             'image' => 'sometimes|image'
         ]);
 
-        // Traitement du fichier image
+        $validated['preparation'] = json_encode($request->input('preparation'));
+
         if ($request->hasFile('image')) {
             if ($request->file('image')->isValid()) {
-                // stocker l'image dans le dossier public/images
                 $path = $request->file('image')->store('images', 'public');
-                //  chemin de l'image aux données validées
                 $validated['image'] = $path;
             } else {
-                // Retourner une erreur si fichier image invalide
                 return back()->withErrors(['image' => 'Invalid image file.'])->withInput();
             }
         } else {
-            // TODO: replace with a default image (default value in db)
             $validated['image'] = "";
         }
 
         Recipe::create($validated);
 
-        return redirect()->route('recipes.index')->with('success', 'Recette créé avec succès!');
+        return redirect()->route('recipes.index')->with('success', 'Recette créée avec succès!');
     }
+
 
     /**
      * Display the specified resource.
@@ -149,8 +147,10 @@ class RecipeController extends Controller
     public function edit(string $id)
     {
         $recipe = Recipe::findOrFail($id);
+        $recipe->preparation = json_decode($recipe->preparation, true);
         return view('recipes.edit', compact('recipe'));
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -160,20 +160,28 @@ class RecipeController extends Controller
         // Validation des données reçues
         $validated = $request->validate([
             'title' => 'required|min:2|max:50',
+            'preparation_time' => 'required|numeric|min:1',
             'difficulty' => 'required|in:1,2,3',
             'type' => 'required|in:1,2,3,4',
-            'preparation_time' => 'required|numeric|min:1',
-            'image' => 'sometimes|image',
-            'preparation' => 'required|string|min:10'
+            'preparation' => 'required|array|min:1',
+            'preparation.*.action' => 'required|string|min:3',
+            'image' => 'sometimes|image'
         ]);
 
-        // Récupération de la recette ou échec si non trouvée
         $recipe = Recipe::findOrFail($id);
+        $validated['preparation'] = json_encode($request->input('preparation'));
+        if ($request->hasFile('image')) {
+            if ($request->file('image')->isValid()) {
+                $path = $request->file('image')->store('images', 'public');
+                $validated['image'] = $path;
+            }
+        }
 
         $recipe->update($validated);
 
         return redirect()->route('recipes.index')->with('success', 'Recette modifiée avec succès.');
     }
+
 
 
     /**
