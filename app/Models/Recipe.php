@@ -54,4 +54,14 @@ class Recipe extends Model
     {
        return self::TYPE[ $this->attributes['type'] ];
     }
+
+    public function getPreparationAttribute($value)
+    {
+        return json_decode($value, true);
+    }
+
+    public function setPreparationAttribute($value)
+    {
+        $this->attributes['preparation'] = json_encode($value);
+    }
 }

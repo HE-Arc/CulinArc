@@ -67,15 +67,21 @@
                     @enderror
                 </div>
 
-                <div class="form-group col-12">
-                    <label for="inputPreparation">Préparation (format JSON)</label>
-                    <textarea name="preparation" class="form-control" id="inputPreparation" rows="4">{{ old('preparation', $recipe->preparation) }}</textarea>
-                    @error('preparation')
-                        <div class="alert alert-danger">{{ $message }}</div>
-                    @enderror
+                <div id="preparation-steps">
+                    <label for="inputPreparation">Étapes de préparation</label>
+                    @foreach ($recipe->preparation as $index => $step)
+                        <div class="step" data-index="{{ $index }}">
+
+                            <input type="text" name="preparation[{{ $index }}][action]" value="{{ $step['action'] }}" class="form-control">
+                            <button type="button" class="btn btn-danger btn-remove-step" data-index="{{ $index }}">Supprimer</button>
+                        </div>
+                    @endforeach
                 </div>
 
-                <button type="submit" class="btn btn-primary mt-3">Modifier</button>
+                <button type="button" id="add-step" class="btn btn-primary">Ajouter une étape</button>
+
+                <button type="submit" class="btn btn-success">Enregistrer les modifications</button>
+
             </div>
         </div>
     </div>

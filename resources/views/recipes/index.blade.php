@@ -52,7 +52,6 @@
                     <a class="dropdown-item" href="{{ route('recipes.index', array_merge(request()->except('page'), ['time' => '5-15'])) }}">5-15 min</a>
                     <a class="dropdown-item" href="{{ route('recipes.index', array_merge(request()->except('page'), ['time' => '15-30'])) }}">15-30 min</a>
                     <a class="dropdown-item" href="{{ route('recipes.index', array_merge(request()->except('page'), ['time' => '30+'])) }}">30 min et plus</a>
-
                 </div>
             </div>
 

@@ -26,10 +26,13 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                   <li class="nav-item">
-                      <a class="nav-link" href="/recipes">Recettes</a>
+                      <a class="nav-link" href="{{ route('recipes.index') }}">Recettes</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="/ingredients">Ingrédients</a>
+                    <a class="nav-link" href="{{ route('recipes.create') }}">Nouvelle recette</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ route('recipes.edit', 10) }}">Modifier recette</a>
                   </li>
                 </ul>
             </div>
@@ -45,6 +48,9 @@
         @endif
 
         @yield("content")
+
+        <!-- Include scripts -->
+        @stack('scripts')
     </div>
 
     <!-- Bootstrap JS -->
