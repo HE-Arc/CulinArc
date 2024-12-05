@@ -78,18 +78,15 @@
                             <label for="inputPreparation">Étapes de préparation</label>
                             <div id="preparation-steps">
                                 <!-- Ajouter des champs dynamiques -->
-                                <div class="step mb-2">
+                                <div class="step d-flex mb-2">
                                     <input type="text" name="preparation[0][action]" class="form-control">
                                 </div>
                             </div>
-                            <button type="button" class="btn btn-secondary mt-2" id="add-step">Ajouter une étape</button>
-                            @error('preparation')
-                                <div class="alert alert-danger">{{ $message }}</div>
-                            @enderror
-                        </div>
 
-                        <button type="submit" class="btn btn-primary mt-3">Créer</button>
+                        </div>
                     </div>
+                    <button type="button" class="btn btn-secondary mt-2" id="add-step">Ajouter une étape</button>
+                    <button type="submit" class="btn btn-primary mt-3">Créer</button>
                 </div>
             </div>
         </div>
