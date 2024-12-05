@@ -85,3 +85,4 @@ class IngredientController extends Controller
     }
 
 }
+
