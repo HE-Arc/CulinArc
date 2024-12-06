@@ -3,8 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Recipe extends Model
 {
@@ -25,11 +27,18 @@ class Recipe extends Model
 
     protected $fillable = ['title', 'difficulty', 'type', 'preparation_time', 'image', 'preparation'];
 
-    public function ingredients(): HasMany
+    // public function ingredients(): HasMany
+    // {
+    //     return $this->HasMany(Ingredient::class);
+    // }
+    public function ingredients(): BelongsToMany
     {
-        return $this->HasMany(Ingredient::class);
+        return $this->belongsToMany(Ingredient::class, 'recipes_ingredients', 'recipe_id', 'ingredient_id')
+                    ->withPivot('quantity')
+                    ->withTimestamps();
     }
-
+    
+    
     public function users(): HasMany
     {
         return $this->HasMany(User::class);
@@ -53,5 +62,15 @@ class Recipe extends Model
     public function getTypeAttribute()
     {
        return self::TYPE[ $this->attributes['type'] ];
+    }
+
+    public function getPreparationAttribute($value)
+    {
+        return json_decode($value, true);
+    }
+
+    public function setPreparationAttribute($value)
+    {
+        $this->attributes['preparation'] = json_encode($value);
     }
 }
