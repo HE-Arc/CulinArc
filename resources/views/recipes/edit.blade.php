@@ -73,23 +73,19 @@
                         @foreach ($recipe->preparation as $index => $step)
                             <div class="step mb-2" data-index="{{ $index }}">
                                 <input type="text" name="preparation[{{ $index }}][action]" value="{{ $step['action'] }}" class="form-control mb-2">
-                                <button type="button" class="btn btn-danger btn-remove-step" data-index="{{ $index }}">Supprimer</button>
-                            </div>
+                                <button type="button" class="btn btn-danger remove-step" data-index="{{ $index }}">Supprimer</button></div>
                         @endforeach
                     </div>
                 </div>
-
             </div>
             <button type="button" id="add-step" class="btn btn-secondary mt-2">Ajouter une étape</button>
             <button type="submit" class="btn btn-primary mt-3">Enregistrer les modifications</button>
         </div>
     </div>
-
 </form>
 
 @endsection
 
 @push('scripts')
-    <!-- Lien vers le fichier JavaScript -->
     <script src="{{ asset('dynamic-steps.js') }}"></script>
 @endpush

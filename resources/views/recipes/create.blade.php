@@ -77,12 +77,10 @@
                         <div class="form-group col-12">
                             <label for="inputPreparation">Étapes de préparation</label>
                             <div id="preparation-steps">
-                                <!-- Ajouter des champs dynamiques -->
-                                <div class="step d-flex mb-2">
-                                    <input type="text" name="preparation[0][action]" class="form-control">
+                                <div class="step mb-2">
+                                    <input type="text" name="preparation[0][action]" class="form-control mb-2">
                                 </div>
                             </div>
-
                         </div>
                     </div>
                     <button type="button" class="btn btn-secondary mt-2" id="add-step">Ajouter une étape</button>
@@ -106,6 +104,5 @@
 @endsection
 
 @push('scripts')
-    <!-- Lien vers le fichier JavaScript -->
     <script src="{{ asset('dynamic-steps.js') }}"></script>
 @endpush

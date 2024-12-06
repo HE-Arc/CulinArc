@@ -24,18 +24,13 @@ class Ingredient extends Model
 
    protected $fillable = ['name', 'unit'];
 
-   // public function recipes(): HasMany
-   // {
-   //     return $this->hasMany(Recipe::class);
-   // }
-   
    public function recipes(): BelongsToMany
    {
     return $this->belongsToMany(Recipe::class, 'recipes_ingredients', 'ingredient_id', 'recipe_id')
                 ->withPivot('quantity')
                 ->withTimestamps();
    }
-   
+
    public static function getUnitID($unit)
    {
       return array_search($unit, self::UNITS);

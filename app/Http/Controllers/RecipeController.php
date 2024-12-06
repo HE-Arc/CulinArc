@@ -104,11 +104,6 @@ class RecipeController extends Controller
      public function show(string $id)
      {
          $recipe = Recipe::with('ingredients')->findOrFail($id);
-     
-         $recipe->preparation = $recipe->preparation 
-             ? json_decode($recipe->preparation, true)
-             : [];
-     
          return view('recipes.show', compact('recipe'));
      }
 
@@ -116,26 +111,26 @@ class RecipeController extends Controller
     //  public function show(string $id)
     //  {
     //      $recipe = Recipe::findOrFail($id);
-     
+
     //      // Récupérer les ingrédients associés
     //      $ingredients = Ingredient::where('recipe_id', $id)->get();
-     
+
     //      // Décoder le JSON de la préparation
-    //      $recipe->preparation = $recipe->preparation 
-    //          ? json_decode($recipe->preparation, true) 
+    //      $recipe->preparation = $recipe->preparation
+    //          ? json_decode($recipe->preparation, true)
     //          : [];
-     
+
     //      // Transmettre à la vue
     //      return view('recipes.show', compact('recipe', 'ingredients'));
     //  }
-     
+
     // public function show(string $id)
     // {
     //     $recipe = Recipe::findOrFail($id);
     //     $ingredients = Ingredient::findOrfail($id);
 
-    //     $recipe->preparation = $recipe->preparation 
-    //         ? json_decode($recipe->preparation, true) 
+    //     $recipe->preparation = $recipe->preparation
+    //         ? json_decode($recipe->preparation, true)
     //         : [];
     //     //dd($recipe->preparation);
     //     return view('recipes.show', compact('recipe'));
