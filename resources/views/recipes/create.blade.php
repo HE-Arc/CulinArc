@@ -73,6 +73,25 @@
                             @enderror
                         </div>
 
+                        <!-- Liste des ingrédients -->
+                        <div class="form-group col-12">
+                            <label for="ingredients">Ingrédients</label>
+                            <div id="ingredients-list">
+                                <div class="ingredient-row mb-2">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                        <select name="ingredients[0][id]" class="form-control w-75">
+                                            @foreach ($ingredients as $ingredient)
+                                                <option value="{{ $ingredient->id }}">{{ $ingredient->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <input type="number" name="ingredients[0][quantity]" class="form-control w-25 ml-2" placeholder="Quantité">
+                                    </div>
+                                    <button type="button" class="btn btn-danger remove-ingredient">Supprimer</button>
+                                </div>
+                            </div>
+                            <button type="button" id="add-ingredient" class="btn btn-secondary w-100">Ajouter un ingrédient</button>
+                        </div>
+
                         <!-- Étapes de préparation -->
                         <div class="form-group col-12">
                             <label for="inputPreparation">Étapes de préparation</label>
@@ -105,4 +124,5 @@
 
 @push('scripts')
     <script src="{{ asset('dynamic-steps.js') }}"></script>
+    <script src="{{ asset('dynamic-ingredients.js') }}"></script>
 @endpush

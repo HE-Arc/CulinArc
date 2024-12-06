@@ -60,7 +60,8 @@ class RecipeController extends Controller
      */
     public function create()
     {
-        return view('recipes.create');
+        $ingredients = Ingredient::all();
+        return view('recipes.create', compact('ingredients'));
     }
 
     /**
@@ -75,27 +76,44 @@ class RecipeController extends Controller
             'type' => 'required|in:1,2,3,4',
             'preparation' => 'required|array|min:1',
             'preparation.*.action' => 'required|string|min:3',
+            'ingredients' => 'required|array|min:1',
+            'ingredients.*.id' => 'required|exists:ingredients,id',
+            'ingredients.*.quantity' => 'required|numeric|min:1',
             'image' => 'sometimes|image'
         ]);
 
-        $validated['preparation'] = json_encode($request->input('preparation'));
-
+        // Traitement du fichier image
         if ($request->hasFile('image')) {
             if ($request->file('image')->isValid()) {
                 $path = $request->file('image')->store('images', 'public');
                 $validated['image'] = $path;
             } else {
-                return back()->withErrors(['image' => 'Invalid image file.'])->withInput();
+                return back()->withErrors(['image' => 'Le fichier image est invalide.'])->withInput();
             }
         } else {
             $validated['image'] = "";
         }
 
-        Recipe::create($validated);
+        // Création de la recette
+        $recipe = Recipe::create([
+            'title' => $validated['title'],
+            'preparation_time' => $validated['preparation_time'],
+            'difficulty' => $validated['difficulty'],
+            'type' => $validated['type'],
+            'preparation' => json_encode($validated['preparation']),
+            'image' => $validated['image'],
+        ]);
+
+        // Préparer les données pour la table pivot
+        $ingredientsData = [];
+        foreach ($validated['ingredients'] as $ingredient) {
+            $ingredientsData[$ingredient['id']] = ['quantity' => $ingredient['quantity']];
+        }
+
+        $recipe->ingredients()->sync($ingredientsData);
 
         return redirect()->route('recipes.index')->with('success', 'Recette créée avec succès!');
     }
-
 
     /**
      * Display the specified resource.
@@ -107,35 +125,6 @@ class RecipeController extends Controller
          return view('recipes.show', compact('recipe'));
      }
 
-
-    //  public function show(string $id)
-    //  {
-    //      $recipe = Recipe::findOrFail($id);
-
-    //      // Récupérer les ingrédients associés
-    //      $ingredients = Ingredient::where('recipe_id', $id)->get();
-
-    //      // Décoder le JSON de la préparation
-    //      $recipe->preparation = $recipe->preparation
-    //          ? json_decode($recipe->preparation, true)
-    //          : [];
-
-    //      // Transmettre à la vue
-    //      return view('recipes.show', compact('recipe', 'ingredients'));
-    //  }
-
-    // public function show(string $id)
-    // {
-    //     $recipe = Recipe::findOrFail($id);
-    //     $ingredients = Ingredient::findOrfail($id);
-
-    //     $recipe->preparation = $recipe->preparation
-    //         ? json_decode($recipe->preparation, true)
-    //         : [];
-    //     //dd($recipe->preparation);
-    //     return view('recipes.show', compact('recipe'));
-    // }
-
     /**
      * Show the form for editing the specified resource.
      */
@@ -143,16 +132,16 @@ class RecipeController extends Controller
     {
         $recipe = Recipe::findOrFail($id);
         $recipe->preparation = json_decode($recipe->preparation, true);
-        return view('recipes.edit', compact('recipe'));
-    }
+        $ingredients = Ingredient::all();
 
+        return view('recipes.edit', compact('recipe', 'ingredients'));
+    }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
     {
-        // Validation des données reçues
         $validated = $request->validate([
             'title' => 'required|min:2|max:50',
             'preparation_time' => 'required|numeric|min:1',
@@ -160,24 +149,31 @@ class RecipeController extends Controller
             'type' => 'required|in:1,2,3,4',
             'preparation' => 'required|array|min:1',
             'preparation.*.action' => 'required|string|min:3',
-            'image' => 'sometimes|image'
+            'ingredients' => 'required|array|min:1',
+            'ingredients.*.id' => 'required|exists:ingredients,id',
+            'ingredients.*.quantity' => 'required|numeric|min:1',
+            'image' => 'sometimes|image',
         ]);
 
         $recipe = Recipe::findOrFail($id);
-        $validated['preparation'] = json_encode($request->input('preparation'));
-        if ($request->hasFile('image')) {
-            if ($request->file('image')->isValid()) {
-                $path = $request->file('image')->store('images', 'public');
-                $validated['image'] = $path;
-            }
+
+        // Mettre à jour les informations générales de la recette
+        $validated['preparation'] = json_encode($validated['preparation']);
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $validated['image'] = $request->file('image')->store('images', 'public');
         }
 
         $recipe->update($validated);
 
+        // Synchroniser les ingrédients
+        $ingredientsData = [];
+        foreach ($validated['ingredients'] as $ingredient) {
+            $ingredientsData[$ingredient['id']] = ['quantity' => $ingredient['quantity']];
+        }
+        $recipe->ingredients()->sync($ingredientsData);
+
         return redirect()->route('recipes.index')->with('success', 'Recette modifiée avec succès.');
     }
-
-
 
     /**
      * Remove the specified resource from storage.

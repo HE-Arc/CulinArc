@@ -68,6 +68,28 @@
                 </div>
 
                 <div class="form-group col-12">
+                    <label for="ingredients">Ingrédients</label>
+                    <div id="ingredients-list">
+                        @foreach ($recipe->ingredients as $index => $ingredient)
+                            <div class="ingredient-row mb-2" data-index="{{ $index }}">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <select name="ingredients[{{ $index }}][id]" class="form-control w-75">
+                                        @foreach ($ingredients as $option)
+                                            <option value="{{ $option->id }}" {{ $option->id == $ingredient->id ? 'selected' : '' }}>
+                                                {{ $option->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    <input type="number" name="ingredients[{{ $index }}][quantity]" class="form-control w-25 ml-2" placeholder="Quantité" value="{{ $ingredient->pivot->quantity }}">
+                                </div>
+                                <button type="button" class="btn btn-danger remove-ingredient" data-index="{{ $index }}">Supprimer</button>
+                            </div>
+                        @endforeach
+                    </div>
+                    <button type="button" id="add-ingredient" class="btn btn-secondary w-100">Ajouter un ingrédient</button>
+                </div>
+
+                <div class="form-group col-12">
                     <div id="preparation-steps">
                         <label for="inputPreparation">Étapes de préparation</label>
                         @foreach ($recipe->preparation as $index => $step)
@@ -88,4 +110,5 @@
 
 @push('scripts')
     <script src="{{ asset('dynamic-steps.js') }}"></script>
+    <script src="{{ asset('dynamic-ingredients.js') }}"></script>
 @endpush

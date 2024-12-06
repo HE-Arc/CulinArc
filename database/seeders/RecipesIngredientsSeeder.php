@@ -11,7 +11,7 @@ class RecipesIngredientsSeeder extends Seeder
     {
         $data = [
             // Omelette simple au fromage
-            ['recipe_id' => 1, 'ingredient_id' => 26, 'quantity' => 3],  // œufs
+            ['recipe_id' => 1, 'ingredient_id' => 26, 'quantity' => 3],   // œufs
             ['recipe_id' => 1, 'ingredient_id' => 1, 'quantity' => 50],   // fromage râpé
             ['recipe_id' => 1, 'ingredient_id' => 30, 'quantity' => 1],   // pincée de sel
             ['recipe_id' => 1, 'ingredient_id' => 31, 'quantity' => 1],   // pincée de poivre
@@ -72,7 +72,7 @@ class RecipesIngredientsSeeder extends Seeder
             ['recipe_id' => 8, 'ingredient_id' => 10, 'quantity' => 100],  // beurre
             ['recipe_id' => 8, 'ingredient_id' => 23, 'quantity' => 1],    // câpres
             ['recipe_id' => 8, 'ingredient_id' => 9, 'quantity' => 1],     // gousse d'ail
-            ['recipe_id' => 8, 'ingredient_id' => 5, 'quantity' => 1],     // moutarde
+            ['recipe_id' => 8, 'ingredient_id' => 22, 'quantity' => 1],    // moutarde
             ['recipe_id' => 8, 'ingredient_id' => 5, 'quantity' => 1],     // curry
             ['recipe_id' => 8, 'ingredient_id' => 24, 'quantity' => 1],    // estragon
             ['recipe_id' => 8, 'ingredient_id' => 25, 'quantity' => 1],    // persil
