@@ -24,14 +24,9 @@ class UserController extends Controller
             'password' => 'required|min:6',
         ]);
 
-        //not using confirmed validation rule to have custom error message
-        if ($request->password !== $request->password_confirmation) {
-            return back()->withErrors(['password' => 'The passwords do not match.']);
-        }
-
         $validated['password'] = bcrypt($validated['password']);
 
-        User::create($validated);
+        Auth::login(User::create($validated));
 
         return redirect()->route('home')->with('success', 'User created successfully!');
     }
