@@ -28,5 +28,14 @@ Route::middleware('guest')->group(function () {
     Route::post('register', [UserController::class, 'store']);
 });
 
+Route::middleware('auth')->group(function () {
+    Route::post('logout', [UserController::class, 'logout'])->name('logout');
+});
 
-Route::post('logout', [UserController::class, 'logout'])->name('logout');
+Route::middleware('admin')->group(function () {
+    Route::get('recipes/create', [RecipeController::class, 'create'])->name('recipes.create');
+    Route::post('recipes', [RecipeController::class, 'store'])->name('recipes.store');
+    Route::get('recipes/{recipe}/edit', [RecipeController::class, 'edit'])->name('recipes.edit');
+    Route::put('recipes/{recipe}', [RecipeController::class, 'update'])->name('recipes.update');
+    Route::delete('recipes/{recipe}', [RecipeController::class, 'destroy'])->name('recipes.destroy');
+});
