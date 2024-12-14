@@ -34,14 +34,12 @@ class Recipe extends Model
     public function ingredients(): BelongsToMany
     {
         return $this->belongsToMany(Ingredient::class, 'recipes_ingredients', 'recipe_id', 'ingredient_id')
-                    ->withPivot('quantity')
-                    ->withTimestamps();
+                    ->withPivot('quantity');
     }
-    
-    
-    public function users(): HasMany
+
+    public function users(): BelongsToMany
     {
-        return $this->HasMany(User::class);
+        return $this->belongsToMany(User::class, 'recipes_users', 'recipe_id', 'user_id');
     }
 
     public static function getDifficultyID($difficulty)
