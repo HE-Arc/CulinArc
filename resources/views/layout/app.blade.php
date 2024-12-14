@@ -19,21 +19,29 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">Home</a>
+            <a class="navbar-brand" href="{{ route('recipes.index') }}">Home</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                   <li class="nav-item">
-                      <a class="nav-link" href="{{ route('recipes.index') }}">Recettes</a>
+                    <a class="nav-link" href="{{ route('recipes.create') }}">Mes favoris</a>
                   </li>
+                 @if(Auth::check() && Auth::user()->is_admin === 1)
                   <li class="nav-item">
                     <a class="nav-link" href="{{ route('recipes.create') }}">Nouvelle recette</a>
                   </li>
+                 @endif
+                  
+                  @if(!Auth::check())
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ route('recipes.edit', 10) }}">Modifier recette</a>
+                    <a class="nav-link" href="{{ route('login') }}">Se connecter</a>
                   </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ route('register') }}">Créer un compte</a>
+                  </li>
+                  @endif
                 </ul>
             </div>
         </div>

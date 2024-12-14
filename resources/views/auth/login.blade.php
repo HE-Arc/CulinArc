@@ -1,4 +1,3 @@
-
 @extends('layout.app')
 
 @section('content')
@@ -16,6 +15,8 @@
     </div>
     <button type="submit" class="btn btn-primary">Login</button>
 </form>
+
+<p>Pas de compte ? <a href="{{ route('register') }}">Créer un compte</a></p>
 
 @if ($errors->any())
     <div class="alert alert-danger">

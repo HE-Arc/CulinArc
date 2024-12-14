@@ -9,7 +9,7 @@
             @if ($recipe->image)
                 <img src="{{ asset('storage/' . $recipe->image) }}" alt="{{ $recipe->title }}" class="img-fluid rounded">
             @else
-                <img src="{{ asset('default-image.jpg') }}" alt="Image par défaut" class="img-fluid rounded">
+                <img src="https://via.placeholder.com/150" alt="Image par défaut" class="img-fluid rounded">
             @endif
         </div>
 
@@ -37,6 +37,22 @@
                 <h2>Recette n°{{ $recipe->id }} - {{ $recipe->title }}</h2>
             </div>
             <div class="card-body">
+            <!-- Admin only update button -->
+            @if (auth()->check() && auth()->user()->is_admin === 1)
+            <div class="text-end mb-3">
+                <a href="{{ route('recipes.edit', $recipe->id) }}" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></a>
+                <a href="{{ route('recipes.destroy', $recipe->id) }}" class="btn btn-danger" 
+                    onclick="event.preventDefault(); 
+                    document.getElementById('delete-recipe-form').submit();">
+                    <i class="bi bi-trash-fill"></i>
+                </a>
+
+                <form id="delete-recipe-form" action="{{ route('recipes.destroy', $recipe->id) }}" method="POST" style="display: none;">
+                     @csrf
+                     @method('DELETE')
+                </form>
+            </div>
+            @endif
                 <div class="form-group mb-3">
                     <strong>Difficulté :</strong> {{ $recipe->difficulty }}
                 </div>
@@ -45,7 +61,7 @@
                 </div>
 
                 <div class="form-group">
-                    <strong>Étapes de cuisson :</strong>
+                    <strong>Étapes de préparation :</strong>
                     @if (!empty($recipe->preparation) && is_array($recipe->preparation))
                         <ol>
                             @foreach ($recipe->preparation as $step)
@@ -56,6 +72,13 @@
                         <p>Aucune étape disponible.</p>
                     @endif
                 </div>
+                
+                <!-- Admin only update button -->
+                @if (auth()->check() && auth()->user()->is_admin === 1)
+                <div class="text-center mt-4">
+                    <a href="{{ route('recipes.edit', $recipe->id) }}" class="btn btn-primary">Mettre à jour</a>
+                </div>
+                @endif
             </div>
         </div>
     </div>
