@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ingredient;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RecipeController extends Controller
 {
@@ -100,7 +101,7 @@ class RecipeController extends Controller
             'preparation_time' => $validated['preparation_time'],
             'difficulty' => $validated['difficulty'],
             'type' => $validated['type'],
-            'preparation' => json_encode($validated['preparation']),
+            'preparation' => $validated['preparation'],
             'image' => $validated['image'],
         ]);
 
@@ -111,8 +112,7 @@ class RecipeController extends Controller
         }
 
         $recipe->ingredients()->sync($ingredientsData);
-
-        return redirect()->route('recipes.index')->with('success', 'Recette créée avec succès!');
+        return redirect()->route('recipes.show', $recipe->id)->with('success', 'Recette créée avec succès!');
     }
 
     /**
@@ -122,7 +122,6 @@ class RecipeController extends Controller
      public function show(string $id)
      {
          $recipe = Recipe::with('ingredients')->findOrFail($id);
-         $recipe->preparation = json_decode($recipe->preparation, true);
          return view('recipes.show', compact('recipe'));
      }
 
@@ -132,7 +131,6 @@ class RecipeController extends Controller
     public function edit(string $id)
     {
         $recipe = Recipe::findOrFail($id);
-        $recipe->preparation = json_decode($recipe->preparation, true);
         $ingredients = Ingredient::all();
 
         return view('recipes.edit', compact('recipe', 'ingredients'));
@@ -159,7 +157,6 @@ class RecipeController extends Controller
         $recipe = Recipe::findOrFail($id);
 
         // Mettre à jour les informations générales de la recette
-        $validated['preparation'] = json_encode($validated['preparation']);
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $validated['image'] = $request->file('image')->store('images', 'public');
         }
@@ -172,8 +169,7 @@ class RecipeController extends Controller
             $ingredientsData[$ingredient['id']] = ['quantity' => $ingredient['quantity']];
         }
         $recipe->ingredients()->sync($ingredientsData);
-
-        return redirect()->route('recipes.index')->with('success', 'Recette modifiée avec succès.');
+        return redirect()->route('recipes.show', $recipe->id)->with('success', 'Recette modifiée avec succès.');
     }
 
     /**
@@ -184,7 +180,19 @@ class RecipeController extends Controller
         $recipe = Recipe::findOrFail($id);
         $recipe->delete();
 
-        return redirect()->route('recipes.index')->with('success', 'Recette supprimée avec succès!');
+        return response()->json(['success' => true, 'message' => 'Recette supprimée avec succès!']);
     }
 
+    public function toggleFavorite(string $id)
+    {
+        $recipe = Recipe::findOrFail($id);
+
+        if ($recipe->isFavorite(Auth::user()->id)) {
+            Auth::user()->recipes()->detach($recipe);
+        } else {
+            Auth::user()->recipes()->attach($recipe);
+        }
+
+        return response()->json(['success' => true, 'message' => 'Le statut de favori a été mis à jour.']);
+    }
 }

@@ -30,6 +30,8 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::post('logout', [UserController::class, 'logout'])->name('logout');
+    Route::get('favorites', [UserController::class, 'favorites'])->name('favorites');
+    Route::post('recipes/{recipe}/favorite', [RecipeController::class, 'toggleFavorite'])->name('recipes.favorite');
 });
 
 Route::middleware('admin')->group(function () {
