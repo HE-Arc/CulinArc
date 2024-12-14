@@ -26,7 +26,7 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                   <li class="nav-item">
-                    <a class="nav-link" href="{{ route('recipes.create') }}">Mes favoris</a>
+                    <a class="nav-link" href="{{ route('favorites') }}">Mes favoris</a>
                   </li>
                  @if(Auth::check() && Auth::user()->is_admin === 1)
                   <li class="nav-item">

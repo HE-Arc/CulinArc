@@ -72,13 +72,6 @@
                         <p>Aucune étape disponible.</p>
                     @endif
                 </div>
-                
-                <!-- Admin only update button -->
-                @if (auth()->check() && auth()->user()->is_admin === 1)
-                <div class="text-center mt-4">
-                    <a href="{{ route('recipes.edit', $recipe->id) }}" class="btn btn-primary">Mettre à jour</a>
-                </div>
-                @endif
             </div>
         </div>
     </div>
