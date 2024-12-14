@@ -122,6 +122,7 @@ class RecipeController extends Controller
      public function show(string $id)
      {
          $recipe = Recipe::with('ingredients')->findOrFail($id);
+         $recipe->preparation = json_decode($recipe->preparation, true);
          return view('recipes.show', compact('recipe'));
      }
 
