@@ -20,6 +20,8 @@
     <button type="submit" class="btn btn-primary">Register</button>
 </form>
 
+<p>Déjà un compte ? <a href="{{ route('login') }}">Se connecter</a></p>
+
 @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
