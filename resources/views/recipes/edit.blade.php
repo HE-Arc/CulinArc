@@ -109,6 +109,6 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('dynamic-steps.js') }}"></script>
-    <script src="{{ asset('dynamic-ingredients.js') }}"></script>
+    <script src="{{ asset('js/dynamic-steps.js') }}"></script>
+    <script src="{{ asset('js/dynamic-ingredients.js') }}"></script>
 @endpush

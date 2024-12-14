@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Ingredient;
 use App\Models\Recipe;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RecipeController extends Controller
 {
@@ -111,7 +112,6 @@ class RecipeController extends Controller
         }
 
         $recipe->ingredients()->sync($ingredientsData);
-
         return redirect()->route('recipes.show', $recipe->id)->with('success', 'Recette créée avec succès!');
     }
 
@@ -169,8 +169,7 @@ class RecipeController extends Controller
             $ingredientsData[$ingredient['id']] = ['quantity' => $ingredient['quantity']];
         }
         $recipe->ingredients()->sync($ingredientsData);
-
-        return redirect()->route('recipes.index')->with('success', 'Recette modifiée avec succès.');
+        return redirect()->route('recipes.show', $recipe->id)->with('success', 'Recette modifiée avec succès.');
     }
 
     /**
@@ -181,7 +180,19 @@ class RecipeController extends Controller
         $recipe = Recipe::findOrFail($id);
         $recipe->delete();
 
-        return redirect()->route('recipes.index')->with('success', 'Recette supprimée avec succès!');
+        return response()->json(['success' => true, 'message' => 'Recette supprimée avec succès!']);
     }
 
+    public function toggleFavorite(string $id)
+    {
+        $recipe = Recipe::findOrFail($id);
+
+        if ($recipe->isFavorite(Auth::user()->id)) {
+            Auth::user()->recipes()->detach($recipe);
+        } else {
+            Auth::user()->recipes()->attach($recipe);
+        }
+
+        return response()->json(['success' => true, 'message' => 'Le statut de favori a été mis à jour.']);
+    }
 }

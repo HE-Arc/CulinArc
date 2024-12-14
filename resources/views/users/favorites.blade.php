@@ -39,9 +39,4 @@
     </div>
 </div>
 
-<!-- Pagination -->
-<div class="d-flex justify-content-center mt-4">
-    {{ $recipes->appends(request()->except('page'))->links() }}
-</div>
-
 @endsection

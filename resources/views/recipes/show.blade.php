@@ -35,17 +35,24 @@
         <div class="card">
             <div class="card-header text-center">
                 <h2>Recette n°{{ $recipe->id }} - {{ $recipe->title }}</h2>
+                <!-- Favorite button -->
+                @if (Auth::check())
+                    <form id="favorite-form" action="{{ route('recipes.favorite', $recipe->id) }}" method="POST" class="d-inline">
+                        @csrf
+                        <button type="button" class="btn btn-link p-0" onclick="toggleFavorite()">
+                            <i id="favorite-icon" class="bi bi-star{{ $recipe->isFavorite(Auth::user()->id) ? '-fill' : '' }}"></i>
+                        </button>
+                    </form>
+                @endif
             </div>
             <div class="card-body">
             <!-- Admin only update button -->
-            @if (auth()->check() && auth()->user()->is_admin === 1)
+            @if (Auth::check() && Auth::user()->is_admin === 1)
             <div class="text-end mb-3">
                 <a href="{{ route('recipes.edit', $recipe->id) }}" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></a>
-                <a href="{{ route('recipes.destroy', $recipe->id) }}" class="btn btn-danger" 
-                    onclick="event.preventDefault(); 
-                    document.getElementById('delete-recipe-form').submit();">
+                <button class="btn btn-danger" onclick="deleteRecipe()">
                     <i class="bi bi-trash-fill"></i>
-                </a>
+                </button>
 
                 <form id="delete-recipe-form" action="{{ route('recipes.destroy', $recipe->id) }}" method="POST" style="display: none;">
                      @csrf
@@ -76,5 +83,8 @@
         </div>
     </div>
 </div>
+
+<script src="{{ asset('js/recipe-delete.js') }}"></script>
+<script src="{{ asset('js/recipe-favorite.js') }}"></script>
 
 @endsection

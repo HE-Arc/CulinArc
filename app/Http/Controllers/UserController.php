@@ -92,4 +92,10 @@ class UserController extends Controller
 
         return redirect()->route('home')->with('success', 'User deleted successfully!');
     }
+
+    public function favorites()
+    {
+        $recipes = Auth::user()->recipes;
+        return view('users.favorites', compact('recipes'));
+    }
 }
