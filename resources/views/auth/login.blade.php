@@ -10,10 +10,10 @@
         <input type="email" class="form-control" id="email" name="email" required>
     </div>
     <div class="form-group">
-        <label for="password">Password:</label>
+        <label for="password">Mot de passe:</label>
         <input type="password" class="form-control" id="password" name="password" required>
     </div>
-    <button type="submit" class="btn btn-primary">Login</button>
+    <button type="submit" class="btn btn-primary">Se connecter</button>
 </form>
 
 <p>Pas de compte ? <a href="{{ route('register') }}">Créer un compte</a></p>

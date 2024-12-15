@@ -21,7 +21,7 @@
                             @if($recipe->image)
                                 <img src="{{ asset('storage/' . $recipe->image) }}" class="card-img-top" alt="{{ $recipe->title }}">
                             @else
-                                <img src="https://via.placeholder.com/150" class="card-img-top" alt="Default image">
+                                <img src="https://via.placeholder.com/150" class="card-img-top" alt="Image par défaut">
                             @endif
                             <div class="card-body">
                                 <h5 class="card-title text-dark">{{ $recipe->title }}</h5>

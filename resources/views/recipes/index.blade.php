@@ -7,12 +7,12 @@
         <div class="container">
             <!-- Container for image, text, and button -->
             <div class="container-spe">
-                <img src="{{ asset('images/home.jpg') }}" alt="Home image">
+                <img src="{{ asset('images/home.jpg') }}" alt="Image d'accueil">
 
                 <!-- Text and Button Overlaid on Image -->
                 <div class="overlay-text">
                     <h2>Des recettes faciles et rapides</h2>
-                    <a href="{{ route('recipes.index', array_merge(request()->except('page'), ['time' => '5-15', 'difficulty' => 'Facile'])) }}" class="btn btn-primary mb-2">Show now</a>
+                    <a href="{{ route('recipes.index', array_merge(request()->except('page'), ['time' => '5-15', 'difficulty' => 'Facile'])) }}" class="btn btn-primary mb-2">Afficher</a>
                 </div>
             </div>
         </div>
@@ -83,7 +83,7 @@
                             @if($recipe->image)
                                 <img src="{{ asset('storage/' . $recipe->image) }}" class="card-img-top" alt="{{ $recipe->title }}">
                             @else
-                                <img src="https://via.placeholder.com/150" class="card-img-top" alt="Default image">
+                                <img src="https://via.placeholder.com/150" class="card-img-top" alt="Image par défaut">
                             @endif
                             <div class="card-body">
                                 <h5 class="card-title text-dark">{{ $recipe->title }}</h5>
