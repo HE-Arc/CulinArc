@@ -34,6 +34,15 @@
                       <a class="nav-link" href="{{ route('recipes.create') }}">Nouvelle recette</a>
                     </li>
                   @endif
+                    <li class="nav-item">
+                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                      </form>
+                      <a class="nav-link" href="{{ route('logout') }}" 
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        Se déconnecter
+                      </a>
+                    </li>
                 @else
                   <li class="nav-item">
                     <a class="nav-link" href="{{ route('login') }}">Se connecter</a>
