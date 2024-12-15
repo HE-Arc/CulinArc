@@ -28,7 +28,7 @@ class UserController extends Controller
 
         Auth::login(User::create($validated));
 
-        return redirect()->route('home')->with('success', 'User created successfully!');
+        return redirect()->route('home')->with('success', 'Compte créé avec succès!');
     }
 
     public function login(Request $request)
@@ -40,11 +40,11 @@ class UserController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('home')->with('success', 'Logged in successfully!');
+            return redirect()->intended('home')->with('success', 'Connecté avec succès!');
         }
 
         return back()->withErrors([
-            'The provided credentials do not match our records.',
+            __('auth.failed')
         ]);
     }
 
@@ -53,17 +53,7 @@ class UserController extends Controller
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('home')->with('success', 'Logged out successfully!');
-    }
-
-    public function show(string $id)
-    {
-        //TODO : add user profile page
-    }
-
-    public function edit(string $id)
-    {
-        //TODO : add user edit page
+        return redirect()->route('home')->with('success', 'Déconnecté avec succès!');
     }
 
     public function update(Request $request, string $id)
@@ -82,7 +72,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->update($validated);
 
-        return redirect()->route('home')->with('success', 'User updated successfully!');
+        return redirect()->route('home')->with('success', 'Compte modifié avec succès!');
     }
 
     public function destroy(string $id)
@@ -90,7 +80,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $user->delete();
 
-        return redirect()->route('home')->with('success', 'User deleted successfully!');
+        return redirect()->route('home')->with('success', 'Compte supprimé avec succès!');
     }
 
     public function favorites()

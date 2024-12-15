@@ -81,10 +81,10 @@
                                     <div class="d-flex justify-content-between align-items-center mb-2">
                                         <select name="ingredients[0][id]" class="form-control w-75">
                                             @foreach ($ingredients as $ingredient)
-                                                <option value="{{ $ingredient->id }}">{{ $ingredient->name }}</option>
+                                                <option value="{{ $ingredient->id }}">{{ $ingredient->name }} ({{ $ingredient->getUnitAttribute() }})</option>
                                             @endforeach
                                         </select>
-                                        <input type="number" name="ingredients[0][quantity]" class="form-control w-25 ml-2" placeholder="Quantité">
+                                        <input type="number" name="ingredients[0][quantity]" class="form-control w-25 ml-2" placeholder="Quantité" min="0">
                                     </div>
                                     <button type="button" class="btn btn-danger remove-ingredient">Supprimer</button>
                                 </div>

@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 <select name="ingredients[${ingredientCount}][id]" class="form-control w-75">
                     ${ingredientOptions}
                 </select>
-                <input type="number" name="ingredients[${ingredientCount}][quantity]" class="form-control w-25 ml-2" placeholder="Quantité">
+                <input type="number" name="ingredients[${ingredientCount}][quantity]" class="form-control w-25 ml-2" placeholder="Quantité" min="0">
             </div>
             <button type="button" class="btn btn-danger remove-ingredient">Supprimer</button>
         `;
