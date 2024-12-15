@@ -12,14 +12,14 @@ class Ingredient extends Model
 
    public const UNITS = [
       1 => 'g',
-      2 => '',
+      2 => 'pièces',
       3 => 'ml',
       4 => 'cl',
       5 => 'dl',
       6 => 'l',
       7 => 'c. à soupe',
       8 => 'c. à café',
-      9 => 'pincée',
+      9 => 'pincées',
    ];
 
    protected $fillable = ['name', 'unit'];

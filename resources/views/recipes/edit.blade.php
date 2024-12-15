@@ -76,11 +76,11 @@
                                     <select name="ingredients[{{ $index }}][id]" class="form-control w-75">
                                         @foreach ($ingredients as $option)
                                             <option value="{{ $option->id }}" {{ $option->id == $ingredient->id ? 'selected' : '' }}>
-                                                {{ $option->name }}
+                                                {{ $option->name }} ({{ $option->getUnitAttribute() }})
                                             </option>
                                         @endforeach
                                     </select>
-                                    <input type="number" name="ingredients[{{ $index }}][quantity]" class="form-control w-25 ml-2" placeholder="Quantité" value="{{ $ingredient->pivot->quantity }}">
+                                    <input type="number" name="ingredients[{{ $index }}][quantity]" class="form-control w-25 ml-2" placeholder="Quantité" value="{{ $ingredient->pivot->quantity }}" min="0">
                                 </div>
                                 <button type="button" class="btn btn-danger remove-ingredient" data-index="{{ $index }}">Supprimer</button>
                             </div>

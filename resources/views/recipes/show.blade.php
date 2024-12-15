@@ -20,7 +20,7 @@
                     <h3>Ingrédients :</h3>
                     <ul class="list-unstyled">
                         @foreach ($recipe->ingredients as $ingredient)
-                            <li>{{ $ingredient->name }} - {{ $ingredient->pivot->quantity }}</li>
+                            <li>{{ $ingredient->name }} - {{ $ingredient->pivot->quantity }} {{ $ingredient->getUnitAttribute() }}</li>
                         @endforeach
                     </ul>
                 </div>
