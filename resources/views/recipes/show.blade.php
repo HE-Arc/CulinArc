@@ -13,20 +13,27 @@
             @endif
         </div>
 
-    <!-- Section des ingrédients -->
-        <div class="ingredients-container p-3 my-4">
+<!-- Section des ingrédients -->
+<div class="ingredients-container p-3 my-4">
             @if ($recipe->ingredients->isNotEmpty())
                 <h4 class="ingredients-title mb-2">Ingrédients</h4>
-                <ul class="ingredients-list">
+                <div class="form-group mb-3">
+                    <label for="numPersons"><strong>Nombre de personnes</strong></label>
+                    <input type="number" id="numPersons" class="form-control w-25" value="2" min="1" max="6" oninput="updateQuantities()">
+                </div>
+                <ul class="ingredients-list" id="ingredients-list">
                     @foreach ($recipe->ingredients as $ingredient)
-                        <li>{{ $ingredient->name }} - {{ $ingredient->pivot->quantity }} {{ $ingredient->getUnitAttribute() }}</li>
+                        <li data-quantity="{{ $ingredient->pivot->quantity }}">
+                            <span class="ingredient-name">{{ $ingredient->name }}</span> - 
+                            <span class="ingredient-quantity">{{ $ingredient->pivot->quantity }}</span> 
+                            {{ $ingredient->getUnitAttribute() }}
+                        </li>
                     @endforeach
                 </ul>
             @else
                 <p class="text-center">Aucun ingrédient disponible pour cette recette.</p>
             @endif
         </div>
-
 
         <!-- Section pour la carte -->
         <div class="card">
@@ -83,5 +90,9 @@
 
 <script src="{{ asset('js/recipe-delete.js') }}"></script>
 <script src="{{ asset('js/recipe-favorite.js') }}"></script>
+<script src="{{ asset('js/update-quantities.js') }}"></script>
+
+
+</script>
 
 @endsection
