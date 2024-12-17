@@ -54,7 +54,7 @@
             @if (Auth::check() && Auth::user()->is_admin === 1)
             <div class="text-end mb-3">
                 <a href="{{ route('recipes.edit', $recipe->id) }}" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></a>
-                <button class="btn btn-danger" onclick="deleteRecipe()">
+                <button class="btn btn-danger" onclick="confirmDelete()">
                     <i class="bi bi-trash-fill"></i>
                 </button>
 
@@ -91,8 +91,5 @@
 <script src="{{ asset('js/recipe-delete.js') }}"></script>
 <script src="{{ asset('js/recipe-favorite.js') }}"></script>
 <script src="{{ asset('js/update-quantities.js') }}"></script>
-
-
-</script>
 
 @endsection

@@ -179,8 +179,7 @@ class RecipeController extends Controller
     {
         $recipe = Recipe::findOrFail($id);
         $recipe->delete();
-
-        return response()->json(['success' => true, 'message' => 'Recette supprimée avec succès!']);
+        return redirect()->route('recipes.index')->with('success', 'Recette supprimée avec succès.');
     }
 
     public function toggleFavorite(string $id)
