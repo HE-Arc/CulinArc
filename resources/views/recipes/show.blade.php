@@ -44,7 +44,7 @@
                     <form id="favorite-form" action="{{ route('recipes.favorite', $recipe->id) }}" method="POST" class="d-inline">
                         @csrf
                         <button type="button" class="btn btn-link p-0" onclick="toggleFavorite()">
-                            <i id="favorite-icon" class="bi bi-star{{ $recipe->isFavorite(Auth::user()->id) ? '-fill' : '' }}"></i>
+                            <i id="favorite-icon" class="bi bi-star{{ $recipe->isFavorite(Auth::user()->id) ? '-fill' : '' }}" style="font-size: 1.5em;"></i>
                         </button>
                     </form>
                 @endif
@@ -54,7 +54,7 @@
             @if (Auth::check() && Auth::user()->is_admin === 1)
             <div class="text-end mb-3">
                 <a href="{{ route('recipes.edit', $recipe->id) }}" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></a>
-                <button class="btn btn-danger" onclick="deleteRecipe()">
+                <button class="btn btn-danger" onclick="confirmDelete()">
                     <i class="bi bi-trash-fill"></i>
                 </button>
 
@@ -91,8 +91,5 @@
 <script src="{{ asset('js/recipe-delete.js') }}"></script>
 <script src="{{ asset('js/recipe-favorite.js') }}"></script>
 <script src="{{ asset('js/update-quantities.js') }}"></script>
-
-
-</script>
 
 @endsection

@@ -179,20 +179,21 @@ class RecipeController extends Controller
     {
         $recipe = Recipe::findOrFail($id);
         $recipe->delete();
-
-        return response()->json(['success' => true, 'message' => 'Recette supprimée avec succès!']);
+        return redirect()->route('recipes.index')->with('success', 'Recette supprimée avec succès.');
     }
 
     public function toggleFavorite(string $id)
     {
         $recipe = Recipe::findOrFail($id);
+        $isFavorite = false;
 
         if ($recipe->isFavorite(Auth::user()->id)) {
             Auth::user()->recipes()->detach($recipe);
         } else {
             Auth::user()->recipes()->attach($recipe);
+            $isFavorite = true;
         }
 
-        return response()->json(['success' => true, 'message' => 'Le statut de favori a été mis à jour.']);
+        return response()->json(['success' => true, 'message' => "Recette " . ($isFavorite ? "ajoutée aux" : "retirée des") . " favoris."]);
     }
 }
