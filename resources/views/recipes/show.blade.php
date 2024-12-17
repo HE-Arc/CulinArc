@@ -13,23 +13,20 @@
             @endif
         </div>
 
-        <!-- Centrer les ingrédients au milieu de la page -->
-        <div class="d-flex flex-column align-items-center justify-content-center my-4">
+    <!-- Section des ingrédients -->
+        <div class="ingredients-container p-3 my-4">
             @if ($recipe->ingredients->isNotEmpty())
-                <div class="form-group text-center">
-                    <h3>Ingrédients :</h3>
-                    <ul class="list-unstyled">
-                        @foreach ($recipe->ingredients as $ingredient)
-                            <li>{{ $ingredient->name }} - {{ $ingredient->pivot->quantity }} {{ $ingredient->getUnitAttribute() }}</li>
-                        @endforeach
-                    </ul>
-                </div>
+                <h4 class="ingredients-title mb-2">Ingrédients</h4>
+                <ul class="ingredients-list">
+                    @foreach ($recipe->ingredients as $ingredient)
+                        <li>{{ $ingredient->name }} - {{ $ingredient->pivot->quantity }} {{ $ingredient->getUnitAttribute() }}</li>
+                    @endforeach
+                </ul>
             @else
-                <div class="form-group text-center">
-                    <p>Aucun ingrédient disponible pour cette recette.</p>
-                </div>
+                <p class="text-center">Aucun ingrédient disponible pour cette recette.</p>
             @endif
         </div>
+
 
         <!-- Section pour la carte -->
         <div class="card">
