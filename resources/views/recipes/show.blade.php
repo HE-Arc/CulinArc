@@ -5,7 +5,7 @@
 <div class="row">
     <div class="col-12 col-lg-8 offset-lg-2">
         <!-- Section pour l'image -->
-        <div class="text-center mb-4">
+        <div class="text-center mb-4 image-container">
             @if ($recipe->image)
                 <img src="{{ asset('storage/' . $recipe->image) }}" alt="{{ $recipe->title }}" class="img-fluid rounded">
             @else
