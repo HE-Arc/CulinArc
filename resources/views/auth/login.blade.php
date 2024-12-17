@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('content')
-<h2>Login</h2>
+<h2>Se connecter</h2>
 
 <form method="POST" action="{{ route('login') }}">
     @csrf

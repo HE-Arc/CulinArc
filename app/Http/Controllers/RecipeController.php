@@ -185,13 +185,15 @@ class RecipeController extends Controller
     public function toggleFavorite(string $id)
     {
         $recipe = Recipe::findOrFail($id);
+        $isFavorite = false;
 
         if ($recipe->isFavorite(Auth::user()->id)) {
             Auth::user()->recipes()->detach($recipe);
         } else {
             Auth::user()->recipes()->attach($recipe);
+            $isFavorite = true;
         }
 
-        return response()->json(['success' => true, 'message' => 'Le statut de favori a été mis à jour.']);
+        return response()->json(['success' => true, 'message' => "Recette " . ($isFavorite ? "ajoutée aux" : "retirée des") . " favoris."]);
     }
 }

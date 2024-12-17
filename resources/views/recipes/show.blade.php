@@ -44,7 +44,7 @@
                     <form id="favorite-form" action="{{ route('recipes.favorite', $recipe->id) }}" method="POST" class="d-inline">
                         @csrf
                         <button type="button" class="btn btn-link p-0" onclick="toggleFavorite()">
-                            <i id="favorite-icon" class="bi bi-star{{ $recipe->isFavorite(Auth::user()->id) ? '-fill' : '' }}"></i>
+                            <i id="favorite-icon" class="bi bi-star{{ $recipe->isFavorite(Auth::user()->id) ? '-fill' : '' }}" style="font-size: 1.5em;"></i>
                         </button>
                     </form>
                 @endif

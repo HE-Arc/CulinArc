@@ -1,7 +1,7 @@
 @extends('layout.app')
 
 @section('content')
-<h2>Register</h2>
+<h2>Créer un compte</h2>
 
 <form method="POST" action="{{ route('register') }}">
     @csrf
