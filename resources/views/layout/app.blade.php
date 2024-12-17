@@ -50,6 +50,9 @@
                   <li class="nav-item">
                     <a class="nav-link" href="{{ route('register') }}">Créer un compte</a>
                   </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ route('about') }}">À propos</a>
+                  </li>
                 @endif
               </ul>
             </div>

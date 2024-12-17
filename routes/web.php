@@ -3,6 +3,7 @@
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AboutController;
 
 /*
 |
@@ -38,3 +39,5 @@ Route::middleware('admin')->group(function () {
     Route::put('recipes/{recipe}', [RecipeController::class, 'update'])->name('recipes.update');
     Route::delete('recipes/{recipe}', [RecipeController::class, 'destroy'])->name('recipes.destroy');
 });
+
+Route::get('/a-propos', [AboutController::class, 'index'])->name('about');
