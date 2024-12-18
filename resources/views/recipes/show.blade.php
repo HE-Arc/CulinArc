@@ -94,5 +94,4 @@
 <script src="{{ asset('js/recipe-delete.js') }}"></script>
 <script src="{{ asset('js/recipe-favorite.js') }}"></script>
 <script src="{{ asset('js/update-quantities.js') }}"></script>
-
 @endsection

@@ -27,7 +27,7 @@ class Recipe extends Model
 
     protected $fillable = ['title', 'difficulty', 'type', 'preparation_time', 'image', 'preparation'];
 
-    public function ingredients(): BelongsToMany
+    public function ingredients(): HasMany
     {
         return $this->belongsToMany(Ingredient::class, 'recipes_ingredients', 'recipe_id', 'ingredient_id')
                     ->withPivot('quantity');
@@ -38,7 +38,7 @@ class Recipe extends Model
         return $this->users()->where('user_id', $userId)->exists();
     }
 
-    public function users(): BelongsToMany
+    public function users(): HasMany
     {
         return $this->belongsToMany(User::class, 'recipes_users', 'recipe_id', 'user_id');
     }
@@ -52,7 +52,7 @@ class Recipe extends Model
     {
        return self::DIFFICULTY[ $this->attributes['difficulty']];
     }
-
+  
     public static function getTypeID($type)
     {
        return array_search($type, self::TYPE);

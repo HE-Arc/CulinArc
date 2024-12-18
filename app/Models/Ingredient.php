@@ -24,7 +24,7 @@ class Ingredient extends Model
 
    protected $fillable = ['name', 'unit'];
 
-   public function recipes(): BelongsToMany
+   public function recipes(): HasMany
    {
     return $this->belongsToMany(Recipe::class, 'recipes_ingredients', 'ingredient_id', 'recipe_id')
                 ->withPivot('quantity');
@@ -41,7 +41,6 @@ class Ingredient extends Model
       return array_search($unit, self::UNITS);
    }
 
-   
    /**
     * Retourne l'unité de l'ingrédient
     * @return string

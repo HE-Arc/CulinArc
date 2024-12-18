@@ -25,7 +25,7 @@ class UserController extends Controller
         ]);
 
         $validated['password'] = bcrypt($validated['password']);
-
+      
         //Connexion automatique avec l'utilisateur créé
         Auth::login(User::create($validated));
 

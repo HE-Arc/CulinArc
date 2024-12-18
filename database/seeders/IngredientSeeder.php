@@ -10,7 +10,6 @@ class IngredientSeeder extends Seeder
     public function run()
     {
         DB::table('ingredients')->insert([
-
             ['name' => 'fromage râpé', 'unit' => 1], // g
             ['name' => 'pâtes', 'unit' => 1], // g
             ['name' => 'parmesan', 'unit' => 1], // g
