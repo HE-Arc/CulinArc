@@ -135,4 +135,10 @@
     padding: 4px 0;
 }
 
+/* Style pour la taille du logo */
+.logo {
+    max-height: 40px;
+    width: auto;
+}
+
 
