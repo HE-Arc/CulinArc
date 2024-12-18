@@ -11,23 +11,53 @@
 
     <!-- Bootstrap Icons CDN -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="/">Home</a>
+            <a class="navbar-brand" href="{{ route('recipes.index') }}"><img src="{{ asset('images/culinarc_transp.png') }}" alt="Logo CulinArc" class="img-fluid logo"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
+              <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
+              <ul class="navbar-nav">
+                
+                <!-- Connecté -->
+                @if(Auth::check())
                   <li class="nav-item">
-                      <a class="nav-link" href="/recipes">Recettes</a>
+                    <a class="nav-link" href="{{ route('favorites') }}">Mes favoris</a>
+                  </li>
+                  <!-- Admin -->
+                  @if(Auth::user()->is_admin === 1)
+                    <li class="nav-item">
+                      <a class="nav-link" href="{{ route('recipes.create') }}">Nouvelle recette</a>
+                    </li>
+                  @endif
+                    <li class="nav-item">
+                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                      </form>
+                      <a class="nav-link" href="{{ route('logout') }}" 
+                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                        Se déconnecter
+                      </a>
+                    </li>
+                @else
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ route('login') }}">Se connecter</a>
                   </li>
                   <li class="nav-item">
-                      <a class="nav-link" href="/ingredients">Ingrédients</a>
-                  </li>
-                </ul>
+                    <a class="nav-link" href="{{ route('register') }}">Créer un compte</a>
+                @endif
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ route('about') }}">À propos</a>
+                </li>
+              </ul>
             </div>
         </div>
     </nav>
@@ -41,6 +71,9 @@
         @endif
 
         @yield("content")
+
+        <!-- Include scripts -->
+        @stack('scripts')
     </div>
 
     <!-- Bootstrap JS -->

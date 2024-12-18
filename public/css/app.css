@@ -1,0 +1,144 @@
+/* Container qui contient l'image */
+.container-spe {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    margin-bottom: 20px;
+}
+
+/* Image dans le conteneur */
+.container-spe img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover ;
+}
+
+/* Style pour la superposition de texte et bouton */
+.overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.75);
+    padding: 16px;
+    border-radius: 8px;
+    text-align: center;
+    color: black;
+    white-space: nowrap;  /* Empêche le texte de se diviser en plusieurs lignes */
+}
+
+/* Style pour le bouton */
+/* Effet au survol du bouton */
+.overlay-text .btn:hover {
+    background-color: black;
+}
+
+/* Style des cartes */
+.card {
+    display: flex;
+    flex-direction: column;
+    height: auto; /* change 100%*/
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.card:hover
+{
+    box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+}
+
+.card-img-top {
+    width: 100% !important; /* Largeur à 100% de la carte */
+    height: 200px !important; /* Hauteur fixe pour toutes les images */
+    object-fit: cover !important; /* Remplir sans déformer, en recadrant si nécessaire */
+}
+
+.card-body {
+    flex: 1;/*change */
+    display: flex;
+    flex-direction: column;
+}
+
+.card-title {
+    color: black;
+}
+
+.card-text {
+    margin-top: auto;
+}
+
+/* ============================= */
+/* Début des styles pour les images des recettes */
+/* ============================= */
+.image-container {
+    width: 100%;
+    height: 300px; /* Hauteur uniforme pour toutes les images */
+    overflow: hidden; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    background-color: #f8f9fa; /* Fond par défaut si l'image est absente */
+}
+
+.image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ajuste sans déformer */
+    border-radius: 8px; /* Coins arrondis */
+}
+/* ============================= */
+/* Fin des styles pour les images des recettes */
+/* ============================= */
+
+/* Style pour les ingrédients */
+.card-header h2 {
+    font-size: 28px; 
+    font-weight: bold;
+    color: #000;
+    margin: 0;
+}
+.ingredients-container {
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    max-width: 600px; 
+    margin: 0 auto;
+    padding: 15px; 
+}
+
+/* Titre des ingrédients */
+.ingredients-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+    text-align: center;
+}
+
+/* Liste des ingrédients */
+.ingredients-list {
+    list-style-type: none; /* Supprime les puces par défaut */
+    padding-left: 0;
+}
+
+.ingredients-list li::before {
+    content: "•";           /* Utilise une puce personnalisée */
+    color: yellowgreen;            
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-right: 5px;
+}
+
+/* Élément de la liste */
+.ingredients-list li {
+    padding: 4px 0;
+}
+
+/* Style pour la taille du logo */
+.logo {
+    max-height: 40px;
+    width: auto;
+}
+
+
