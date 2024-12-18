@@ -8,9 +8,10 @@ document.addEventListener('DOMContentLoaded', function () {
         .map(option => `<option value="${option.value}">${option.text}</option>`)
         .join('');
 
+    // Ajouter un champ pour sélcetionner un ingrédient et sa quantité
     addIngredientButton.addEventListener('click', function () {
         const newIngredient = document.createElement('div');
-        newIngredient.classList.add('ingredient-row', 'mb-3'); // Adjusted margin for spacing
+        newIngredient.classList.add('ingredient-row', 'mb-3');
         newIngredient.innerHTML = `
             <div class="d-flex justify-content-between align-items-center mb-2">
                 <select name="ingredients[${ingredientCount}][id]" class="form-control w-75">
@@ -23,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function () {
         ingredientsList.appendChild(newIngredient);
         ingredientCount++;
 
-        // Add event listener to the remove button
+        // Ajout de l'événement pour supprimer un ingrédient
         newIngredient.querySelector('.remove-ingredient').addEventListener('click', function () {
             ingredientsList.removeChild(newIngredient);
         });

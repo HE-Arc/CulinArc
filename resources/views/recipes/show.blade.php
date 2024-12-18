@@ -13,8 +13,8 @@
             @endif
         </div>
 
-<!-- Section des ingrédients -->
-<div class="ingredients-container p-3 my-4">
+        <!-- Section des ingrédients -->
+        <div class="ingredients-container p-3 my-4">
             @if ($recipe->ingredients->isNotEmpty())
                 <h4 class="ingredients-title mb-2">Ingrédients</h4>
                 <div class="form-group mb-3">
@@ -39,7 +39,7 @@
         <div class="card">
             <div class="card-header text-center">
                 <h2>Recette n°{{ $recipe->id }} - {{ $recipe->title }}</h2>
-                <!-- Favorite button -->
+                <!-- Bouton favori -->
                 @if (Auth::check())
                     <form id="favorite-form" action="{{ route('recipes.favorite', $recipe->id) }}" method="POST" class="d-inline">
                         @csrf
@@ -50,7 +50,7 @@
                 @endif
             </div>
             <div class="card-body">
-            <!-- Admin only update button -->
+            <!-- Boutons admin -->
             @if (Auth::check() && Auth::user()->is_admin === 1)
             <div class="text-end mb-3">
                 <a href="{{ route('recipes.edit', $recipe->id) }}" class="btn btn-primary"><i class="bi bi-pencil-fill"></i></a>
@@ -64,6 +64,7 @@
                 </form>
             </div>
             @endif
+                <!-- Attributs -->
                 <div class="form-group mb-3">
                     <strong>Difficulté :</strong> {{ $recipe->difficulty }}
                 </div>
@@ -71,6 +72,8 @@
                     <strong>Temps de préparation :</strong> {{ $recipe->preparation_time }} minutes
                 </div>
 
+                
+                <!-- Etapes -->
                 <div class="form-group">
                     <strong>Étapes de préparation :</strong>
                     @if (!empty($recipe->preparation) && is_array($recipe->preparation))

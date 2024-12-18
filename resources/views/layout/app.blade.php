@@ -25,10 +25,13 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
               <ul class="navbar-nav">
+                
+                <!-- Connecté -->
                 @if(Auth::check())
                   <li class="nav-item">
                     <a class="nav-link" href="{{ route('favorites') }}">Mes favoris</a>
                   </li>
+                  <!-- Admin -->
                   @if(Auth::user()->is_admin === 1)
                     <li class="nav-item">
                       <a class="nav-link" href="{{ route('recipes.create') }}">Nouvelle recette</a>

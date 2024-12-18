@@ -9,9 +9,6 @@ use Illuminate\Support\Facades\Auth;
 
 class RecipeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index(Request $request)
     {
         $query = Recipe::query();
@@ -56,18 +53,12 @@ class RecipeController extends Controller
     }
 
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         $ingredients = Ingredient::all();
         return view('recipes.create', compact('ingredients'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -95,7 +86,6 @@ class RecipeController extends Controller
             $validated['image'] = "";
         }
 
-        // Création de la recette
         $recipe = Recipe::create([
             'title' => $validated['title'],
             'preparation_time' => $validated['preparation_time'],
@@ -105,19 +95,15 @@ class RecipeController extends Controller
             'image' => $validated['image'],
         ]);
 
-        // Préparer les données pour la table pivot
+        // Préparer les données pour la table associative
         $ingredientsData = [];
         foreach ($validated['ingredients'] as $ingredient) {
             $ingredientsData[$ingredient['id']] = ['quantity' => $ingredient['quantity']];
         }
-
         $recipe->ingredients()->sync($ingredientsData);
+
         return redirect()->route('recipes.show', $recipe->id)->with('success', 'Recette créée avec succès!');
     }
-
-    /**
-     * Display the specified resource.
-     */
 
      public function show(string $id)
      {
@@ -125,9 +111,6 @@ class RecipeController extends Controller
          return view('recipes.show', compact('recipe'));
      }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
         $recipe = Recipe::findOrFail($id);
@@ -136,9 +119,6 @@ class RecipeController extends Controller
         return view('recipes.edit', compact('recipe', 'ingredients'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
         $validated = $request->validate([
@@ -156,7 +136,7 @@ class RecipeController extends Controller
 
         $recipe = Recipe::findOrFail($id);
 
-        // Mettre à jour les informations générales de la recette
+        // Traitement du fichier image
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $validated['image'] = $request->file('image')->store('images', 'public');
         }
@@ -172,9 +152,6 @@ class RecipeController extends Controller
         return redirect()->route('recipes.show', $recipe->id)->with('success', 'Recette modifiée avec succès.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $recipe = Recipe::findOrFail($id);
@@ -182,6 +159,9 @@ class RecipeController extends Controller
         return redirect()->route('recipes.index')->with('success', 'Recette supprimée avec succès.');
     }
 
+    /*
+    * Ajoute ou retire une recette des favoris de l'utilisateur connecté
+    */
     public function toggleFavorite(string $id)
     {
         $recipe = Recipe::findOrFail($id);
@@ -194,6 +174,7 @@ class RecipeController extends Controller
             $isFavorite = true;
         }
 
+        //adapatation du message à afficher en js
         return response()->json(['success' => true, 'message' => "Recette " . ($isFavorite ? "ajoutée aux" : "retirée des") . " favoris."]);
     }
 }

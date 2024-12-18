@@ -2,14 +2,11 @@
 
 @section('content')
 <div class="container">
-    <!-- Header Section -->
     <div class="text-center my-5">
         <div class="container">
-            <!-- Container for image, text, and button -->
             <div class="container-spe">
                 <img src="{{ asset('images/home.jpg') }}" alt="Image d'accueil">
 
-                <!-- Text and Button Overlaid on Image -->
                 <div class="overlay-text">
                     <h2>Des recettes faciles et rapides</h2>
                     <a href="{{ route('recipes.index', array_merge(request()->except('page'), ['time' => '5-15', 'difficulty' => 'Facile'])) }}" class="btn btn-primary mb-2">Afficher</a>
@@ -18,19 +15,18 @@
         </div>
     </div>
 
-    <!-- Filter Section -->
     <div class="d-flex align-items-center mb-4">
 
-        <!-- Reset Filters Button -->
+        <!-- Réinitialiser les filtres -->
         @if (request()->hasAny(['type', 'difficulty', 'time']))
             <div class="mr-auto">
                 <a href="{{ route('recipes.index', array_merge(request()->except(['type', 'difficulty', 'time']), ['page' => request()->get('page')])) }}" class="btn btn-danger text-nowrap mx-1">Réinitialiser les filtres</a>
             </div>
         @endif
 
-        <!-- Filters Section (aligned to the right) -->
+        <!-- Filtres -->
         <div class="d-flex justify-content-end w-100">
-            <!-- Category Filter -->
+            <!-- Filtre catégorie -->
             <div class="dropdown mx-1">
                 <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
                     {{ request()->get('type') ? request()->get('type') : 'Catégorie' }}
@@ -43,7 +39,7 @@
                 </div>
             </div>
 
-            <!-- Time Filter -->
+            <!-- Filtre temps -->
             <div class="dropdown mx-1">
                 <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
                     {{ request()->get('time') ? request()->get('time') : 'Temps de préparation' }}
@@ -55,7 +51,7 @@
                 </div>
             </div>
 
-            <!-- Difficulty Filter -->
+            <!-- Filtre difficulté -->
             <div class="dropdown mx-1">
                 <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown">
                     {{ request()->get('difficulty') ? request()->get('difficulty') : 'Difficulté' }}
@@ -69,7 +65,7 @@
         </div>
     </div>
 
-    <!-- Recipes Grid Section -->
+    <!-- Grille des recettes -->
     <div class="row">
         @if($recipes->isEmpty())
             <div class="col-12 text-center">

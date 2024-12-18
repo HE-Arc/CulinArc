@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Auth;
 class AdminMiddleware
 {
     /**
-     * Handle an incoming request.
+     * Redirige l'utilisateur vers la page d'accueil s'il n'est pas administrateur
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next

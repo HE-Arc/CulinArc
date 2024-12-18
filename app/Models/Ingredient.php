@@ -30,11 +30,22 @@ class Ingredient extends Model
                 ->withPivot('quantity');
    }
 
+   /**
+    * Retourne l'ID correspondant à l'unité
+    *
+    * @param string $unit
+    * @return int
+    */
    public static function getUnitID($unit)
    {
       return array_search($unit, self::UNITS);
    }
 
+   
+   /**
+    * Retourne l'unité de l'ingrédient
+    * @return string
+    */
    public function getUnitAttribute()
    {
       return self::UNITS[ $this->attributes['unit'] ];

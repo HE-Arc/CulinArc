@@ -1,3 +1,4 @@
+
 document.addEventListener('DOMContentLoaded', function () {
     const stepsContainer = document.getElementById('preparation-steps');
     const addStepButton = document.getElementById('add-step');

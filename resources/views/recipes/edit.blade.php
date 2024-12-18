@@ -18,6 +18,7 @@
         </div>
         <div class="card-body">
             <div class="form-row">
+                <!-- Nom -->
                 <div class="form-group col-12">
                     <label for="inputTitle">Nom de la recette</label>
                     <input type="text" name="title" class="form-control" id="inputTitle" value="{{ old('title', $recipe->title) }}">
@@ -26,6 +27,7 @@
                     @enderror
                 </div>
 
+                <!-- Image -->
                 <div class="form-group col-12">
                     <label for="inputImage">Image</label>
                     <input type="file" name="image" class="form-control-file" id="inputImage">
@@ -34,6 +36,7 @@
                     @enderror
                 </div>
 
+                <!-- Temps de préparation -->
                 <div class="form-group col-12">
                     <label for="inputPreparationTime">Temps de préparation (en minutes)</label>
                     <input type="number" name="preparation_time" class="form-control" id="inputPreparationTime" value="{{ old('preparation_time', $recipe->preparation_time) }}">
@@ -42,6 +45,7 @@
                     @enderror
                 </div>
 
+                <!-- Difficulté -->
                 <div class="form-group col-12">
                     <label for="inputDifficulty">Difficulté</label>
                     <select name="difficulty" class="form-control" id="inputDifficulty">
@@ -54,6 +58,7 @@
                     @enderror
                 </div>
 
+                <!-- Type -->
                 <div class="form-group col-12">
                     <label for="inputType">Type de plat</label>
                     <select name="type" class="form-control" id="inputType">
@@ -67,6 +72,7 @@
                     @enderror
                 </div>
 
+                <!-- Ingrédients -->
                 <div class="form-group col-12">
                     <label for="ingredients">Ingrédients</label>
                     <div id="ingredients-list">
@@ -89,6 +95,7 @@
                     <button type="button" id="add-ingredient" class="btn btn-secondary w-100">Ajouter un ingrédient</button>
                 </div>
 
+                <!-- Etapes -->
                 <div class="form-group col-12">
                     <div id="preparation-steps">
                         <label for="inputPreparation">Étapes de préparation</label>

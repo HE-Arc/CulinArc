@@ -13,7 +13,7 @@ function toggleFavorite() {
               icon.classList.toggle('bi-star-fill');
               icon.classList.toggle('bi-star');
 
-              // Find or create alert div
+              // trouver ou créer une div alert 
               let alertDiv = document.querySelector('.alert[role="alert"]');
               if (!alertDiv) {
                   alertDiv = document.createElement('div');

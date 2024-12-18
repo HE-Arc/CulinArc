@@ -27,19 +27,17 @@ class Recipe extends Model
 
     protected $fillable = ['title', 'difficulty', 'type', 'preparation_time', 'image', 'preparation'];
 
-    // public function ingredients(): HasMany
-    // {
-    //     return $this->HasMany(Ingredient::class);
-    // }
     public function ingredients(): BelongsToMany
     {
         return $this->belongsToMany(Ingredient::class, 'recipes_ingredients', 'recipe_id', 'ingredient_id')
                     ->withPivot('quantity');
     }
+
     public function isFavorite($userId): bool
     {
         return $this->users()->where('user_id', $userId)->exists();
     }
+
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'recipes_users', 'recipe_id', 'user_id');

@@ -2,12 +2,11 @@
 
 @section('content')
 <div class="container">
-    <!-- Header Section -->
     <div class="text-center my-5">
         <h2>Mes Favoris</h2>
     </div>
 
-    <!-- Recipes Grid Section -->
+    <!-- Recettes -->
     <div class="row">
         @if($recipes->isEmpty())
             <div class="col-12 text-center">

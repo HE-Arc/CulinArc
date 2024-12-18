@@ -26,6 +26,7 @@ class UserController extends Controller
 
         $validated['password'] = bcrypt($validated['password']);
 
+        //Connexion automatique avec l'utilisateur créé
         Auth::login(User::create($validated));
 
         return redirect()->route('home')->with('success', 'Compte créé avec succès!');
@@ -44,6 +45,7 @@ class UserController extends Controller
         }
 
         return back()->withErrors([
+            //utilisation des valeurs de traduction
             __('auth.failed')
         ]);
     }
@@ -56,33 +58,9 @@ class UserController extends Controller
         return redirect()->route('home')->with('success', 'Déconnecté avec succès!');
     }
 
-    public function update(Request $request, string $id)
-    {
-        $validated = $request->validate([
-            'email' => 'required|email|unique:users,email,' . $id,
-            'password' => 'nullable|min:6|confirmed',
-        ]);
-
-        if ($request->filled('password')) {
-            $validated['password'] = bcrypt($validated['password']);
-        } else {
-            unset($validated['password']);
-        }
-
-        $user = User::findOrFail($id);
-        $user->update($validated);
-
-        return redirect()->route('home')->with('success', 'Compte modifié avec succès!');
-    }
-
-    public function destroy(string $id)
-    {
-        $user = User::findOrFail($id);
-        $user->delete();
-
-        return redirect()->route('home')->with('success', 'Compte supprimé avec succès!');
-    }
-
+    /*
+    * Affiche la liste des recettes favorites de l'utilisateur connecté
+    */
     public function favorites()
     {
         $recipes = Auth::user()->recipes;
