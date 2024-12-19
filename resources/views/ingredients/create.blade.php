@@ -1,3 +1,7 @@
+<!----------------------------------->
+<!-- code inutilisé (comme discuté) -->
+<!----------------------------------->
+
 @extends('layout.app')
 
 @section('content')

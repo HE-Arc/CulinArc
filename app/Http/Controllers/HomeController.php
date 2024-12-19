@@ -1,4 +1,7 @@
 <?php
+/*
+* code inutilisé (comme discuté)
+*/
 
 namespace App\Http\Controllers;
 

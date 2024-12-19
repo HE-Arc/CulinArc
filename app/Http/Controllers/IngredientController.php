@@ -1,5 +1,7 @@
 <?php
-
+/*
+* code inutilisé (comme discuté)
+*/
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
